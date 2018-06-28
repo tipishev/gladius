@@ -4,15 +4,9 @@ using Toybox.System as Sys;
 using Toybox.Math as Math;
 
 // colors
-const TRANSPARENT = Gfx.COLOR_TRANSPARENT;
-const WHITE = Gfx.COLOR_WHITE;
-const BLACK = Gfx.COLOR_BLACK;
-const RED = Gfx.COLOR_RED;
 const LEFT_CORNER = [60, 200];
 const RIGHT_CORNER = [200, 60];
 
-// functions
-const print = Sys.println;
 
 class Creature {
 
@@ -87,7 +81,7 @@ class gladiusView extends Ui.View {
         bim = new Creature("Bim", BLACK, 7, LEFT_CORNER);
         bom = new Creature("Bom", RED, 5, RIGHT_CORNER);
         pointA = new Point(120, 120);
-        print(pointA.toString());
+        print(pointA);
         pointB = new Point(100, 100);
         print(pointB.toString());
         vector = new Vector(pointA, pointB);
