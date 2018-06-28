@@ -1,6 +1,7 @@
 using Toybox.Graphics as Gfx;
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
+using Toybox.Math as Math;
 
 // colors
 const TRANSPARENT = Gfx.COLOR_TRANSPARENT;
@@ -19,12 +20,12 @@ class Creature {
   protected var _x;
   protected var _y;
 
-  function initialize(name, color, x, y) {
+  function initialize(name, color, speed, x, y) {
     self._name = name;
     self._color = color;
+    self._speed = speed;
     self._x = x;
     self._y = y;
-    self._speed = 5;
   }
 
   function toString() {
@@ -38,8 +39,13 @@ class Creature {
   function _moveTowards(point) {
     var dx = point[0] - self._x;
     var dy = point[1] - self._y;
-    self._x += dx / 2;
-    self._y += dy / 2;
+    var length = Math.sqrt(dx * dx + dy * dy);
+    dx /= length;
+    dy /= length;
+    dx *= self._speed;
+    dy *= self._speed;
+    self._x += dx;
+    self._y += dy;
   }
 
   function act(otherPosition) {
@@ -64,8 +70,8 @@ class gladiusView extends Ui.View {
         /* setLayout(Rez.Layouts.MainLayout(dc)); */
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
-        bim = new Creature("Bim", BLACK, 100, 50);
-        bom = new Creature("Bom", RED, 50, 100);
+        bim = new Creature("Bim", BLACK, 7, 100, 50);
+        bom = new Creature("Bom", RED, 5, 50, 100);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -78,7 +84,7 @@ class gladiusView extends Ui.View {
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         /* View.onUpdate(dc); */
-        dc.setColor(self._color, WHITE);
+        dc.setColor(WHITE, WHITE);
         dc.clear();
 
         bim.act([120, 120]);
