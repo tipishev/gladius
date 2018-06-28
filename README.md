@@ -1,2 +1,3 @@
 # gladius
-Playing with Connect IQ graphics
+
+Playing with Connect IQ graphics.
