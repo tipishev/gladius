@@ -60,7 +60,7 @@ class Creature {
   }
 }
 
-var bim, bom, pointA, pointB, vector;  // global otherwise reset does not see
+var bim, bom;
 class gladiusView extends Ui.View {
 
     function initialize() {
@@ -79,13 +79,7 @@ class gladiusView extends Ui.View {
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
         bim = new Creature("Bim", BLACK, 7, LEFT_CORNER);
-        bom = new Creature("Bom", RED, 5, RIGHT_CORNER);
-        pointA = new Point(120, 120);
-        print(pointA);
-        pointB = new Point(100, 100);
-        print(pointB.toString());
-        vector = new Vector(pointA, pointB);
-        print(vector.toString());
+        bom = new Creature("Bom", RED, 2, RIGHT_CORNER);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -105,10 +99,10 @@ class gladiusView extends Ui.View {
         bom.act([120, 120]);
 
         bim.draw(dc);
-        /* print(bim.toString()); */
+        print(bim);
 
         bom.draw(dc);
-        /* print(bom.toString()); */
+        print(bom);
     }
 
 

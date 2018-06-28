@@ -1,8 +1,3 @@
-function print (toPrint) {
-  if (toPrint instanceof Toybox.Lang.String) {
-    Sys.println(toPrint);
-  }
-  else if (toPrint has :toString) {
-    Sys.println(toPrint.toString());
-  }
-}
+using Toybox.System as Sys;
+
+const print = Sys.println;
