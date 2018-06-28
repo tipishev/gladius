@@ -8,6 +8,8 @@ const TRANSPARENT = Gfx.COLOR_TRANSPARENT;
 const WHITE = Gfx.COLOR_WHITE;
 const BLACK = Gfx.COLOR_BLACK;
 const RED = Gfx.COLOR_RED;
+const LEFT_CORNER = [60, 200];
+const RIGHT_CORNER = [200, 60];
 
 // functions
 const print = Sys.println;
@@ -20,12 +22,12 @@ class Creature {
   protected var _x;
   protected var _y;
 
-  function initialize(name, color, speed, x, y) {
+  function initialize(name, color, speed, position) {
     self._name = name;
     self._color = color;
     self._speed = speed;
-    self._x = x;
-    self._y = y;
+    self._x = position[0];
+    self._y = position[1];
   }
 
   function toString() {
@@ -36,7 +38,12 @@ class Creature {
     return [self._x, self._y];
   }
 
-  function _moveTowards(point) {
+  function setPosition(point) {
+    self._x = point[0];
+    self._y = point[1];
+  }
+
+  function moveTowards(point) {
     var dx = point[0] - self._x;
     var dy = point[1] - self._y;
     var length = Math.sqrt(dx * dx + dy * dy);
@@ -44,12 +51,13 @@ class Creature {
     dy /= length;
     dx *= self._speed;
     dy *= self._speed;
-    self._x += dx;
-    self._y += dy;
+    self._x += Math.round(dx);
+    self._y += Math.round(dy);
   }
 
+
   function act(otherPosition) {
-    _moveTowards(otherPosition);
+    moveTowards(otherPosition);
   }
 
   function draw(dc) {
@@ -58,11 +66,17 @@ class Creature {
   }
 }
 
+var bim, bom, point;  // global otherwise reset does not see
 class gladiusView extends Ui.View {
-    var bim, bom;
 
     function initialize() {
         View.initialize();
+    }
+
+    function reset() {
+      bim.setPosition(LEFT_CORNER);
+      bom.setPosition(RIGHT_CORNER);
+      Ui.requestUpdate();
     }
 
     // Load your resources here
@@ -70,8 +84,10 @@ class gladiusView extends Ui.View {
         /* setLayout(Rez.Layouts.MainLayout(dc)); */
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
-        bim = new Creature("Bim", BLACK, 7, 100, 50);
-        bom = new Creature("Bom", RED, 5, 50, 100);
+        bim = new Creature("Bim", BLACK, 7, LEFT_CORNER);
+        bom = new Creature("Bom", RED, 5, RIGHT_CORNER);
+        point = new Point(120, 120);
+        print(point.toString());
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -91,10 +107,10 @@ class gladiusView extends Ui.View {
         bom.act([120, 120]);
 
         bim.draw(dc);
-        print(bim.toString());
+        /* print(bim.toString()); */
 
         bom.draw(dc);
-        print(bom.toString());
+        /* print(bom.toString()); */
     }
 
 

@@ -1,3 +1,4 @@
+using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
 class gladiusDelegate extends Ui.BehaviorDelegate {
@@ -13,6 +14,11 @@ class gladiusDelegate extends Ui.BehaviorDelegate {
 
     function onSelect() {
       Ui.requestUpdate();
+    }
+
+    function onPreviousPage() {
+      var app = App.getApp();
+      app.gladiusView.reset();
     }
 
 }
