@@ -11,10 +11,11 @@ const RED = Gfx.COLOR_RED;
 // functions
 const print = Sys.println;
 
-class Fighther {
+class Creature {
 
   protected var _name;
   protected var _color;
+  protected var _speed;
   protected var _x;
   protected var _y;
 
@@ -23,10 +24,26 @@ class Fighther {
     self._color = color;
     self._x = x;
     self._y = y;
+    self._speed = 5;
   }
 
   function toString() {
     return "I am " + self._name + "! At (" + self._x + ", " + self._y + ")";
+  }
+
+  function getPosition() {
+    return [self._x, self._y];
+  }
+
+  function _moveTowards(point) {
+    var dx = point[0] - self._x;
+    var dy = point[1] - self._y;
+    self._x += dx / 2;
+    self._y += dy / 2;
+  }
+
+  function act(otherPosition) {
+    _moveTowards(otherPosition);
   }
 
   function draw(dc) {
@@ -36,6 +53,7 @@ class Fighther {
 }
 
 class gladiusView extends Ui.View {
+    var bim, bom;
 
     function initialize() {
         View.initialize();
@@ -46,6 +64,8 @@ class gladiusView extends Ui.View {
         /* setLayout(Rez.Layouts.MainLayout(dc)); */
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
+        bim = new Creature("Bim", BLACK, 100, 50);
+        bom = new Creature("Bom", RED, 50, 100);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -58,13 +78,19 @@ class gladiusView extends Ui.View {
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         /* View.onUpdate(dc); */
-        var bim = new Fighther("Bim", BLACK, 100, 50);
+        dc.setColor(self._color, WHITE);
+        dc.clear();
+
+        bim.act([120, 120]);
+        bom.act([120, 120]);
+
         bim.draw(dc);
         print(bim.toString());
 
-        var bom = new Fighther("Bom", RED, 50, 100);
         bom.draw(dc);
+        print(bom.toString());
     }
+
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from

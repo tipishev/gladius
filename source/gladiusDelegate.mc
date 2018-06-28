@@ -12,8 +12,7 @@ class gladiusDelegate extends Ui.BehaviorDelegate {
     }
 
     function onSelect() {
-        Ui.pushView(new Rez.Menus.MainMenu(), new gladiusMenuDelegate(), Ui.SLIDE_UP);
-        return true;
+      Ui.requestUpdate();
     }
 
 }
