@@ -4,8 +4,7 @@ using Toybox.Math as Math;
 const sqrt = Math.sqrt;
 
 class Point {
-  var x;
-  var y;
+  var x, y;
 
   function initialize(x, y) {
     self.x = x;
@@ -18,12 +17,24 @@ class Point {
 }
 
 class Vector {
-  var x;
-  var y;
+  var x, y;
 
   function initialize(start, end) {
     self.x = end.x - start.x;
     self.y = end.y - start.y;
+  }
+
+  function scale(k) {
+    self.x *= k;
+    self.y *= k;
+  }
+
+  function getLength() {
+    return sqrt(self.x * self.x + self.y * self.y);
+  }
+
+  function toUnitVector () {
+    // getting hot-hot-hot, return new Vector? :)
   }
 
   function toString() {
