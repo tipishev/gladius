@@ -8,7 +8,9 @@ class gladiusDelegate extends Ui.BehaviorDelegate {
     }
 
     function onMenu() {
-        Ui.pushView(new Rez.Menus.MainMenu(), new gladiusMenuDelegate(), Ui.SLIDE_UP);
+        Ui.pushView(new Rez.Menus.MainMenu(),
+                    new gladiusMenuDelegate(),
+                    Ui.SLIDE_UP);
         return true;
     }
 

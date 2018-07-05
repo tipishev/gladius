@@ -1,7 +1,8 @@
 using Toybox.Graphics as Gfx;
-using Toybox.WatchUi as Ui;
-using Toybox.System as Sys;
 using Toybox.Math as Math;
+using Toybox.System as Sys;
+using Toybox.Timer as Timer;
+using Toybox.WatchUi as Ui;
 
 // colors
 const LEFT_CORNER = [60, 200];
@@ -63,7 +64,7 @@ class Creature {
   }
 }
 
-var bim, bom;
+var bim, bom, timer;
 class gladiusView extends Ui.View {
 
     function initialize() {
@@ -76,13 +77,23 @@ class gladiusView extends Ui.View {
       Ui.requestUpdate();
     }
 
+    function onTick() {
+      bim.act(bom.getPosition());
+      bom.act([120, 120]);
+      Ui.requestUpdate();
+    }
+
     // Load your resources here
     function onLayout(dc) {
         /* setLayout(Rez.Layouts.MainLayout(dc)); */
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
-        bim = new Creature("Bim", BLACK, 7, LEFT_CORNER);
-        bom = new Creature("Bom", RED, 2, RIGHT_CORNER);
+
+        timer = new Timer.Timer();
+        timer.start(method(:onTick), 50, true);
+
+        bim = new Creature("Bim", BLACK, 6, LEFT_CORNER);
+        bom = new Creature("Bom", RED, 7, RIGHT_CORNER);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -97,15 +108,12 @@ class gladiusView extends Ui.View {
         /* View.onUpdate(dc); */
         dc.setColor(WHITE, WHITE);
         dc.clear();
-
-        bim.act([120, 120]);
-        bom.act([120, 120]);
-
         bim.draw(dc);
         print(bim);
 
         bom.draw(dc);
         print(bom);
+
     }
 
 
