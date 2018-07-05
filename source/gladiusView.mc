@@ -38,6 +38,9 @@ class Creature {
   }
 
   function moveTowards(point) {
+    if (self._x == point[0] && self._y == point[1]) {
+      return;
+    }
     var dx = point[0] - self._x;
     var dy = point[1] - self._y;
     var length = Math.sqrt(dx * dx + dy * dy);
