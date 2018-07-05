@@ -66,15 +66,16 @@ class Creature {
 
 const characterToRezId = {
   :nny_man => Rez.Drawables.nny_man,
+  :punchee => Rez.Drawables.punchee,
 };
 
-var bim, bom, timer, avatar;
+var bim, bom, tickTimer, avatar;
 class gladiusView extends Ui.View {
 
     // TODO separate view
-    function message(dc, character, text) {
+    function drawMessage(dc, character, text) {
       avatar = new Ui.Bitmap({:rezId=>characterToRezId[character],
-                              :locX=>10,:locY=>30});
+                              :locX=>15,:locY=>30});
 
       dc.setColor(DARK_BLUE, TRANSPARENT); // background
       dc.fillRoundedRectangle(/*x*/10, /*y*/30, /*w*/200, /*h*/80, /*r*/7);
@@ -85,7 +86,7 @@ class gladiusView extends Ui.View {
       dc.drawRoundedRectangle(/*x*/10, /*y*/30, /*w*/200, /*h*/80, /*r*/7);
 
       dc.setColor(WHITE, TRANSPARENT);
-      dc.drawText(180, 60, Gfx.FONT_SYSTEM_XTINY, text,
+      dc.drawText(185, 66, Gfx.FONT_SYSTEM_XTINY, text,
                   Gfx.TEXT_JUSTIFY_VCENTER);
     }
 
@@ -111,8 +112,8 @@ class gladiusView extends Ui.View {
         /* dc.setColor(WHITE, WHITE); */
         /* dc.fillCircle(120, 120, 120); */
 
-        timer = new Timer.Timer();
-        /* timer.start(method(:onTick), 1, true); */
+        tickTimer = new Timer.Timer();
+        /* tickTimer.start(method(:onTick), 1, true); */
 
         bim = new Creature("Bim", BLACK, 6, LEFT_CORNER);
         bom = new Creature("Bom", RED, 7, RIGHT_CORNER);
@@ -136,7 +137,8 @@ class gladiusView extends Ui.View {
         bom.draw(dc);
         print(bom);
 
-        message(dc, :nny_man, "Hey you!\nCome here!");
+        /* drawMessage(dc, :nny_man, "Слышь ты,\nмудак!"); */
+        drawMessage(dc, :punchee, "Да, вам\nчто-нибудь\nнужно?");
     }
 
 
