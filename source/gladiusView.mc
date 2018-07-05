@@ -14,7 +14,7 @@ class Creature {
   protected var _name;
   protected var _color;
   protected var _speed;
-  protected var _x;
+  protected var _x;  // FIXME use Point wrapper
   protected var _y;
 
   function initialize(name, color, speed, position) {
@@ -64,8 +64,30 @@ class Creature {
   }
 }
 
-var bim, bom, timer;
+const characterToRezId = {
+  :nny_man => Rez.Drawables.nny_man,
+};
+
+var bim, bom, timer, avatar;
 class gladiusView extends Ui.View {
+
+    // TODO separate view
+    function message(dc, character, text) {
+      avatar = new Ui.Bitmap({:rezId=>characterToRezId[character],
+                              :locX=>10,:locY=>30});
+
+      dc.setColor(DARK_BLUE, TRANSPARENT); // background
+      dc.fillRoundedRectangle(/*x*/10, /*y*/30, /*w*/200, /*h*/80, /*r*/7);
+
+      avatar.draw(dc);
+
+      dc.setColor(BLACK, TRANSPARENT);
+      dc.drawRoundedRectangle(/*x*/10, /*y*/30, /*w*/200, /*h*/80, /*r*/7);
+
+      dc.setColor(WHITE, TRANSPARENT);
+      dc.drawText(180, 60, Gfx.FONT_SYSTEM_XTINY, text,
+                  Gfx.TEXT_JUSTIFY_VCENTER);
+    }
 
     function initialize() {
         View.initialize();
@@ -90,7 +112,7 @@ class gladiusView extends Ui.View {
         /* dc.fillCircle(120, 120, 120); */
 
         timer = new Timer.Timer();
-        timer.start(method(:onTick), 50, true);
+        /* timer.start(method(:onTick), 1, true); */
 
         bim = new Creature("Bim", BLACK, 6, LEFT_CORNER);
         bom = new Creature("Bom", RED, 7, RIGHT_CORNER);
@@ -114,6 +136,7 @@ class gladiusView extends Ui.View {
         bom.draw(dc);
         print(bom);
 
+        message(dc, :nny_man, "Hey you!\nCome here!");
     }
 
 
