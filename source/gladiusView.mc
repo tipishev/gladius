@@ -4,9 +4,9 @@ using Toybox.System as Sys;
 using Toybox.Timer as Timer;
 using Toybox.WatchUi as Ui;
 
-// colors
-const BIM_START = [60, 200];
-const BOM_START = [120, 60];
+const BIM_START = new Point(60, 200);
+const BOM_START = new Point(120, 60);
+const BOM_DESTINATION = new Point(240, 120);
 
 
 class Creature {
@@ -14,43 +14,41 @@ class Creature {
   protected var _name;
   protected var _color;
   protected var _speed;
-  protected var _x;  // FIXME use Point wrapper
-  protected var _y;
+  protected var _position;
 
   function initialize(name, color, speed, position) {
     self._name = name;
     self._color = color;
     self._speed = speed;
-    self._x = position[0];
-    self._y = position[1];
+    self._position = position;
   }
 
   function toString() {
-    return "I am " + self._name + "! At (" + self._x + ", " + self._y + ")";
+    return "I am " + self._name + "! At" + self._position;
   }
 
   function getPosition() {
-    return [self._x, self._y];
+    return self._position;  // TODO clone?
   }
 
   function setPosition(point) {
-    self._x = point[0];
-    self._y = point[1];
+    self._poposition.x = point.x;
+    self._poposition.y = point.y;
   }
 
   function moveTowards(point) {
-    if (self._x == point[0] && self._y == point[1]) {
+    if (self._position.x == point.x && self._position.y == point.y) {
       return;
     }
-    var dx = point[0] - self._x;
-    var dy = point[1] - self._y;
-    var length = Math.sqrt(dx * dx + dy * dy);
+    var dx = point.x - self._position.x;
+    var dy = point.y - self._position.y;
+    var length = Math.sqrt(dx * dx + dy * dy);  // FIXME use function
     dx /= length;
     dy /= length;
     dx *= self._speed;
     dy *= self._speed;
-    self._x += Math.round(dx);
-    self._y += Math.round(dy);
+    self._position.x += Math.round(dx);
+    self._position.y += Math.round(dy);
   }
 
 
@@ -61,7 +59,7 @@ class Creature {
 
   function draw(dc) {
     dc.setColor(self._color, TRANSPARENT);
-    dc.fillCircle(self._x, self._y, 10);
+    dc.fillCircle(self._position.x, self._position.y, 10);
   }
 }
 
@@ -82,7 +80,7 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
 
     function onTick() {
       bim.act(bom.getPosition());
-      bom.act([240, 120]);
+      bom.act(BOM_DESTINATION);
       Ui.requestUpdate();
     }
 

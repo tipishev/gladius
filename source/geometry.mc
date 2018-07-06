@@ -20,12 +20,8 @@ class Point {
   // TODO distance
 }
 
-function distance(point1, point2) {
-  var x1 = point1[0];
-  var y1 = point1[1];
-  var x2 = point2[0];
-  var y2 = point2[1];
-  return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+function distance(point1, point2) {  // TODO typecheck?
+  return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 }
 
 class Vector {
