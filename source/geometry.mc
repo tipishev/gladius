@@ -13,15 +13,21 @@ class Point {
     self.y = y;
   }
 
+  function equals(point) {
+    return (self.x == point.x)  && (self.y == point.y);
+  }
+
+  function distanceTo(point) {
+    return sqrt(pow(self.x - point.x, 2) + pow(self.y - point.y, 2));
+  }
+
+  function clone() {
+    return new Point(self.x, self.y);
+  }
+
   function toString() {
     return "Point (" + self.x + ", " + self.y + ")";
   }
-
-  // TODO distance
-}
-
-function distance(point1, point2) {  // TODO typecheck?
-  return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 }
 
 class Vector {

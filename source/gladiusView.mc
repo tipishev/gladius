@@ -9,6 +9,7 @@ const BOM_START = new Point(120, 60);
 const BOM_DESTINATION = new Point(240, 120);
 
 
+// TODO move out to separate file
 class Creature {
 
   protected var _name;
@@ -20,24 +21,24 @@ class Creature {
     self._name = name;
     self._color = color;
     self._speed = speed;
-    self._position = position;
+    self._position = new Point(position.x, position.y);
   }
 
   function toString() {
-    return "I am " + self._name + "! At" + self._position;
+    return "I am " + self._name + "! At " + self._position;
   }
 
   function getPosition() {
-    return self._position;  // TODO clone?
+    return self._position.clone();
   }
 
   function setPosition(point) {
-    self._poposition.x = point.x;
-    self._poposition.y = point.y;
+    self._position.x = point.x;
+    self._position.y = point.y;
   }
 
   function moveTowards(point) {
-    if (self._position.x == point.x && self._position.y == point.y) {
+    if (self._position.equals(point)) {
       return;
     }
     var dx = point.x - self._position.x;
@@ -74,8 +75,8 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
     function reset() {
       bim.setPosition(BIM_START);
       bom.setPosition(BOM_START);
-      Ui.requestUpdate();
       hadDialogue = false;
+      Ui.requestUpdate();
     }
 
     function onTick() {
@@ -114,8 +115,8 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
         bim.draw(dc);
         bom.draw(dc);
 
-        if (!hadDialogue && distance(bim.getPosition(),
-                                     bom.getPosition()) < 1) {
+        if (!hadDialogue &&
+            bim.getPosition().distanceTo(bom.getPosition()) < 1) {
           var dialogue = [
             /* [:nny_man, "Слышь ты,\nмудак!"], */
             /* [:punchee, "Да, вам\nчто-нибудь\nнужно?"], */
