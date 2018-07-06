@@ -5,8 +5,8 @@ using Toybox.Timer as Timer;
 using Toybox.WatchUi as Ui;
 
 // colors
-const LEFT_CORNER = [60, 200];
-const RIGHT_CORNER = [200, 60];
+const BIM_START = [60, 200];
+const BOM_START = [120, 60];
 
 
 class Creature {
@@ -64,7 +64,7 @@ class Creature {
   }
 }
 
-var bim, bom, tickTimer, avatar;
+var bim, bom, tickTimer, avatar, hadDialogue /* FIXME should be state*/;
 class gladiusView extends Ui.View {  // FIXME capitalize  class name
 
 
@@ -73,14 +73,15 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
     }
 
     function reset() {
-      bim.setPosition(LEFT_CORNER);
-      bom.setPosition(RIGHT_CORNER);
+      bim.setPosition(BIM_START);
+      bom.setPosition(BOM_START);
       Ui.requestUpdate();
+      hadDialogue = false;
     }
 
     function onTick() {
       bim.act(bom.getPosition());
-      bom.act([120, 120]);
+      bom.act([240, 120]);
       Ui.requestUpdate();
     }
 
@@ -91,10 +92,11 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
         /* dc.fillCircle(120, 120, 120); */
 
         tickTimer = new Timer.Timer();
-        tickTimer.start(method(:onTick), 100, true);
+        tickTimer.start(method(:onTick), 50, true);
 
-        bim = new Creature("Bim", BLACK, 6, LEFT_CORNER);
-        bom = new Creature("Bom", RED, 7, RIGHT_CORNER);
+        bim = new Creature("Bim", BLACK, 2, BIM_START);
+        bom = new Creature("Bom", RED, 1, BOM_START);
+        hadDialogue = false;
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -109,11 +111,22 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
         /* View.onUpdate(dc); */
         dc.setColor(WHITE, WHITE);
         dc.clear();
-        bim.draw(dc);
-        print(bim);
 
+        bim.draw(dc);
         bom.draw(dc);
-        print(bom);
+
+        if (!hadDialogue && distance(bim.getPosition(),
+                                     bom.getPosition()) < 1) {
+          var dialogue = [
+            [:nny_man, "Слышь ты,\nмудак!"],
+            [:punchee, "Да, вам\nчто-нибудь\nнужно?"],
+            [:nny_man, "На нах,\nёпта!"],
+          ];
+          var dialogueView = new DialogueView(dialogue);
+          Ui.pushView(dialogueView, new DialogueDelegate(dialogueView),
+                      Ui.SLIDE_UP);
+          hadDialogue = true;
+        }
 
     }
 

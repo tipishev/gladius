@@ -39,6 +39,8 @@ class DialogueView extends Ui.View {
       if (self.index < self._dialogue.size() - 1) {
         self.index += 1;
         Ui.requestUpdate();
+      } else {
+        Ui.popView(Ui.SLIDE_IMMEDIATE);  // close dialogue on last page
       }
     }
 
@@ -51,6 +53,8 @@ class DialogueView extends Ui.View {
 
 
     function onUpdate(dc) {
+        dc.setColor(WHITE, WHITE);
+        dc.clear();
         var phrase = self._dialogue[self.index];
         var character = phrase[0];
         var text = phrase[1];
