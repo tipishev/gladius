@@ -21,6 +21,11 @@ class Point {
     return sqrt(pow(self.x - point.x, 2) + pow(self.y - point.y, 2));
   }
 
+  function readFrom(point) {
+    self.x = point.x;
+    self.y = point.y;
+  }
+
   function clone() {
     return new Point(self.x, self.y);
   }

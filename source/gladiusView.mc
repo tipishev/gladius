@@ -33,8 +33,7 @@ class Creature {
   }
 
   function setPosition(point) {
-    self._position.x = point.x;
-    self._position.y = point.y;
+    self._position.readFrom(point);
   }
 
   function moveTowards(point) {
@@ -60,7 +59,7 @@ class Creature {
 
   function draw(dc) {
     dc.setColor(self._color, TRANSPARENT);
-    dc.fillCircle(self._position.x, self._position.y, 10);
+    dc.fillCircle(self._position.x, self._position.y, 15);
   }
 }
 
