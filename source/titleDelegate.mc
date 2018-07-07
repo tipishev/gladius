@@ -19,6 +19,8 @@ class TitleDelegate extends Ui.BehaviorDelegate {
     }
 
     function onNextPage() {
-      self._view.showMainMenu();
+      var battleView = new BattleView();
+      var battleDelegate = new BattleDelegate(battleView);
+      Ui.pushView(battleView, battleDelegate, Ui.SLIDE_RIGHT);
     }
 }

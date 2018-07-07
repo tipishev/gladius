@@ -1,9 +1,22 @@
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
 
-// TODO move to resources
-const TEXT_ORIGIN_X = 20;
-const TEXT_ORIGIN_Y = 60;
+const LOREM_IPSUM = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+
+const LOREM_IPSUM_LINED = (
+  "Loremnips\n" +
+  "dolornsitnipsumosh\n" +
+  "qwertyuiopasdfghjklzxcvb\n" +
+  "qwertyuiopasdfghjklzxcvbr\n" +
+  "qwertyuiopasdfghjklzxcvbr\n" +
+  "qwertyuiopasdfghjklzxcvb\n" +
+  "dolornsitnipsumosh\n" +
+  "Loremnips"
+);
+
+// 240x240 round screen specific
+const CENTERED_TEXT_OFFSET = [120, 3];
+const LINE_LENGTHS = [9, 18, 26, 27, 27, 26, 18, 9];
 
 class PagerView extends Ui.View {
 
@@ -11,18 +24,14 @@ class PagerView extends Ui.View {
 
     function initialize(text) {
         View.initialize();
-        self._text = text;
+        self._text = LOREM_IPSUM;  // FIXME /* self._text = text; */
         index = 0;
-        print(self._text);
     }
 
     function drawPage(dc, text) {
-
-      // TODO use layout.xml for device-specific placement
       dc.setColor(BLACK, TRANSPARENT);
-      dc.drawText(TEXT_ORIGIN_X + 170, TEXT_ORIGIN_Y + 36,
-                  Gfx.FONT_SYSTEM_XTINY, text,
-                  Gfx.TEXT_JUSTIFY_VCENTER);
+      dc.drawText(CENTERED_TEXT_OFFSET[0], CENTERED_TEXT_OFFSET[1],
+                  Gfx.FONT_SYSTEM_XTINY, text, Gfx.TEXT_JUSTIFY_CENTER);
     }
 
     function showNextPage() {
@@ -41,14 +50,9 @@ class PagerView extends Ui.View {
       }
     }
 
-
     function onUpdate(dc) {
         dc.setColor(WHITE, WHITE);
         dc.clear();
-        /* var phrase = self._dialogue[self.index]; */
-        /* var character = phrase[0]; */
-        /* var text = phrase[1]; */
-        /* drawPage(dc, character, text); */
+        self.drawPage(dc, self._text);
     }
-
 }

@@ -4,6 +4,7 @@ using Toybox.Graphics as Gfx;
 const characterToRezId = {
   :nny_man => Rez.Drawables.nny_man,
   :punchee => Rez.Drawables.punchee,
+  :punch => Rez.Drawables.punch,
 };
 
 const ORIGIN_X = 20;

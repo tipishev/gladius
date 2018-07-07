@@ -59,12 +59,12 @@ class BattleView extends Ui.View {
         if (!hadDialogue &&
             bim.getPosition().distanceTo(bom.getPosition()) < 1) {
           var dialogue = [
-            /* [:nny_man, "Слышь ты,\nмудак!"], */
-            /* [:punchee, "Да, вам\nчто-нибудь\nнужно?"], */
-            /* [:nny_man, "На нах,\nёпта!"], */
-            [:nny_man, "Hey you,\nasshole!"],
-            [:punchee, "Yes, do\nyou need\nanything?"],
-            [:nny_man, "Here, have\nsome!"],
+            [:nny_man, "Слышь ты,\nмудак!"],
+            [:punchee, "Да, вам\nчто-нибудь\nнужно?"],
+            [:punch, "На нах,\nёпта!"],
+            /* [:nny_man, "Hey you,\nasshole!"], */
+            /* [:punchee, "Yes, do\nyou need\nanything?"], */
+            /* [:nny_man, "Here, have\nsome!"], */
           ];
           var dialogueView = new DialogueView(dialogue);
           Ui.pushView(dialogueView, new DialogueDelegate(dialogueView),

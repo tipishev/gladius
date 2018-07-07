@@ -3,6 +3,7 @@
     <bitmap id="LauncherIcon" filename="images/launcher_icon.png" />
     <bitmap id="nny_man" filename="images/na_nakh_yopta_man.png" />
     <bitmap id="punchee" filename="images/punchee.png" />
+    <bitmap id="punch" filename="images/punch.png" />
 
     <!-- Strings -->
     <string id="AppName">Gladius</string>

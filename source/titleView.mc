@@ -29,7 +29,7 @@ class TitleView extends Ui.View {
 
     function startNewGame() {
       Ui.popView(Ui.SLIDE_DOWN);  // popping main menu? maybe move to delegate?
-      var text = "So, you're a gladiator trainer, Harry!";
+      var text = "So, you're a\ngladiator trainer, Harry!\nGo hire some lucky soul to\nfight for you and rock the\nColoseum!";
       var pagerView = new PagerView(text);
       var pagerDelegate = new PagerDelegate(pagerView);
       Ui.pushView(pagerView, pagerDelegate, Ui.SLIDE_RIGHT);
