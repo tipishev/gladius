@@ -26,6 +26,12 @@ class Point {
     self.y = point.y;
   }
 
+  function addVector(vector) {
+    self.x += vector.x;
+    self.y += vector.y;
+    return self;
+  }
+
   function clone() {
     return new Point(self.x, self.y);
   }
@@ -46,6 +52,7 @@ class Vector {
   function scale(k) {
     self.x *= k;
     self.y *= k;
+    return self;
   }
 
   function getLength() {
@@ -53,7 +60,9 @@ class Vector {
   }
 
   function toUnitVector () {
-    // getting hot-hot-hot, return new Vector? :)
+    var length = self.getLength();
+    self.scale(1/length);
+    return self;
   }
 
   function toString() {

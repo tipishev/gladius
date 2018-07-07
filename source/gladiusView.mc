@@ -40,21 +40,8 @@ class Creature {
     if (self._position.equals(point)) {
       return;
     }
-    var dx = point.x - self._position.x;
-    var dy = point.y - self._position.y;
-    var length = Math.sqrt(dx * dx + dy * dy);  // FIXME use function
-    dx /= length;
-    dy /= length;
-    dx *= self._speed;
-    dy *= self._speed;
-    self._position.x += Math.round(dx);
-    self._position.y += Math.round(dy);
-  }
-
-
-  function act(otherPosition) {
-   // TODO consider the size of another object
-    moveTowards(otherPosition);
+    var displacementVector = new Vector(self._position, point).toUnitVector().scale(self._speed);
+    self._position.addVector(displacementVector);
   }
 
   function draw(dc) {
@@ -79,8 +66,8 @@ class gladiusView extends Ui.View {  // FIXME capitalize  class name
     }
 
     function onTick() {
-      bim.act(bom.getPosition());
-      bom.act(BOM_DESTINATION);
+      bim.moveTowards(bom.getPosition());
+      bom.moveTowards(BOM_DESTINATION);
       Ui.requestUpdate();
     }
 
