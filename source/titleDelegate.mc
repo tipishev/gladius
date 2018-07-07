@@ -11,10 +11,14 @@ class TitleDelegate extends Ui.BehaviorDelegate {
     }
 
     function onSelect() {
-      /* Ui.requestUpdate(); */
       self._view.showMainMenu();
     }
 
     function onPreviousPage() {
+      self._view.showMainMenu();
+    }
+
+    function onNextPage() {
+      self._view.showMainMenu();
     }
 }
