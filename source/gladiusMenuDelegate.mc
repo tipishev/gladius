@@ -1,7 +1,7 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System as Sys;
 
-class gladiusMenuDelegate extends Ui.MenuInputDelegate {
+class GladiusMenuDelegate extends Ui.MenuInputDelegate {
 
     function initialize() {
         MenuInputDelegate.initialize();

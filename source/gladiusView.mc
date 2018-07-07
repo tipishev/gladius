@@ -10,7 +10,7 @@ const BOM_DESTINATION = new Point(240, 120);
 
 
 var bim, bom, tickTimer, avatar, hadDialogue /* FIXME should be state*/;
-class gladiusView extends Ui.View {  // FIXME capitalize  class name
+class GladiusView extends Ui.View {  // FIXME capitalize  class name
 
     function initialize() {
         View.initialize();

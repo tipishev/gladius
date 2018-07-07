@@ -1,7 +1,7 @@
 using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
-class gladiusDelegate extends Ui.BehaviorDelegate {
+class GladiusDelegate extends Ui.BehaviorDelegate {
 
     function initialize() {
         BehaviorDelegate.initialize();
@@ -9,7 +9,7 @@ class gladiusDelegate extends Ui.BehaviorDelegate {
 
     function onMenu() {
         Ui.pushView(new Rez.Menus.MainMenu(),
-                    new gladiusMenuDelegate(),
+                    new GladiusMenuDelegate(),
                     Ui.SLIDE_UP);
         /* return true; */  // FIXME delete if useless
     }
@@ -20,6 +20,6 @@ class gladiusDelegate extends Ui.BehaviorDelegate {
 
     function onPreviousPage() {
       var app = App.getApp();
-      app.gladiusView.reset();
+      app.GladiusView.reset();
     }
 }
