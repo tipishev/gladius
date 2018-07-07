@@ -1,4 +1,5 @@
 using Toybox.WatchUi as Ui;
+using Toybox.Application as App;
 
 class TitleView extends Ui.View {
 
@@ -11,13 +12,17 @@ class TitleView extends Ui.View {
     }
 
     function showMainMenu() {
+
       var mainMenu = new Ui.Menu();
       mainMenu.setTitle(Rez.Strings.mainMenu);
-      // TODO don't show in first run
-      mainMenu.addItem(Rez.Strings.loadGame, :load);
+
+      if (App.getApp().gameState != null) {
+        mainMenu.addItem(Rez.Strings.loadGame, :load);
+      }
+
       mainMenu.addItem(Rez.Strings.newGame, :newGame);
 
-      var mainMenuDelegate = new MainMenuDelegate();  // TODO pass valid choices
+      var mainMenuDelegate = new MainMenuDelegate();  // TODO set valid choices
 
       Ui.pushView(mainMenu, mainMenuDelegate, Ui.SLIDE_UP);
     }
