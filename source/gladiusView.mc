@@ -36,11 +36,13 @@ class Creature {
     self._position.readFrom(point);
   }
 
-  function moveTowards(point) {
-    if (self._position.equals(point)) {
+  function moveTowards(destination) {
+    if (self._position.equals(destination)) {
       return;
     }
-    var displacementVector = new Vector(self._position, point).toUnitVector().scale(self._speed);
+    var displacementVector = new Vector(self._position, destination)
+                                 .toUnitVector()
+                                 .scale(self._speed);
     self._position.addVector(displacementVector);
   }
 
