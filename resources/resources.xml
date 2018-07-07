@@ -14,7 +14,8 @@
     <!-- Layouts -->
     <layout id="MainLayout">
         <label x="center" y="5" text="@Strings.prompt" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
-        <bitmap id="nny_man" x="center" y="30" filename="images/na_nakh_yopta_man.png" />
+        <!-- TODO don't repeat yourself with filepath? -->
+        <bitmap id="nny_man" x="center" y="40" filename="images/na_nakh_yopta_man.png" />
     </layout>
 
     <!-- Menus -->

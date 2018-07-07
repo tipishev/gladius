@@ -11,7 +11,6 @@ class GladiusDelegate extends Ui.BehaviorDelegate {
         Ui.pushView(new Rez.Menus.MainMenu(),
                     new GladiusMenuDelegate(),
                     Ui.SLIDE_UP);
-        /* return true; */  // FIXME delete if useless
     }
 
     function onSelect() {
