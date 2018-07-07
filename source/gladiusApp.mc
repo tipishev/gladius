@@ -19,7 +19,7 @@ class GladiusApp extends App.AppBase {
     function getInitialView() {
         var titleView = new TitleView();
         var titleDelegate = new TitleDelegate(titleView);
-        return [titleView, titleDelegate ];
+        return [titleView, titleDelegate];
     }
 
 }
