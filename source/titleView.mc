@@ -12,9 +12,11 @@ class TitleView extends Ui.View {
 
     function showMainMenu() {
       var mainMenu = new Ui.Menu();
-      mainMenu.setTitle("Main Menu");  // TODO use resources for strings
-      mainMenu.addItem("New Game", :newGame);
-      mainMenu.addItem("Load", :load);  // TODO don't show in first run
+      mainMenu.setTitle(Rez.Strings.mainMenu);
+      // TODO don't show in first run
+      mainMenu.addItem(Rez.Strings.loadGame, :load);
+      mainMenu.addItem(Rez.Strings.newGame, :newGame);
+
       Ui.pushView(mainMenu, new GladiusMenuDelegate(), Ui.SLIDE_UP);
     }
 

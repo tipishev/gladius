@@ -6,22 +6,24 @@
 
     <!-- Strings -->
     <string id="AppName">Gladius</string>
+    <string id="vanity">tipishev\n2018</string>
 
     <string id="prompt">Gladius</string>
     <string id="menu_label_1">Wololo</string>
     <string id="menu_label_2">Test</string>
 
+    <string id="mainMenu">Main Menu</string>
+    <string id="newGame">New Game</string>
+    <string id="loadGame">Load Game</string>
+
     <!-- Layouts -->
     <layout id="TitleLayout">
         <label x="center" y="5" text="@Strings.AppName" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
         <!-- TODO don't repeat yourself with filepath? -->
-        <bitmap id="nny_man" x="center" y="40" filename="images/na_nakh_yopta_man.png" />
-        <label x="center" y="170" text="tipishev\n2018" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+        <bitmap id="nny_man" x="center" y="40"
+         filename="images/na_nakh_yopta_man.png" />
+         <label x="center" y="170" text="@Strings.vanity"
+          color="Gfx.COLOR_GREEN"
+          justification="Gfx.TEXT_JUSTIFY_CENTER" />
     </layout>
-
-    <!-- Menus -->
-    <menu id="MainMenu">
-       <menu-item id="item_1" label="@Strings.menu_label_1" />
-       <menu-item id="item_2" label="@Strings.menu_label_2" />
-    </menu>
 </resources>
