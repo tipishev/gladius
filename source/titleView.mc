@@ -17,7 +17,9 @@ class TitleView extends Ui.View {
       mainMenu.addItem(Rez.Strings.loadGame, :load);
       mainMenu.addItem(Rez.Strings.newGame, :newGame);
 
-      Ui.pushView(mainMenu, new GladiusMenuDelegate(), Ui.SLIDE_UP);
+      var mainMenuDelegate = new MainMenuDelegate();  // TODO pass valid choices
+
+      Ui.pushView(mainMenu, mainMenuDelegate, Ui.SLIDE_UP);
     }
 
     function onShow() {
@@ -25,7 +27,6 @@ class TitleView extends Ui.View {
 
     // Update the view
     function onUpdate(dc) {
-        // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
     }
 

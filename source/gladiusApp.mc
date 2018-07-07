@@ -2,9 +2,13 @@ using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
 class GladiusApp extends App.AppBase {
+    private var gameState;
 
     function initialize() {
         AppBase.initialize();
+        /* self.setProperty(Rez.Strings.gameStatePropertyName, "foo"); */
+        gameState = self.getProperty(Rez.Strings.gameStatePropertyName);
+        print(gameState);
     }
 
     // onStart() is called on application start up
