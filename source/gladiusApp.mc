@@ -17,7 +17,9 @@ class GladiusApp extends App.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new GladiusView(), new GladiusDelegate() ];
+        var titleView = new TitleView();
+        var titleDelegate = new TitleDelegate(titleView);
+        return [titleView, titleDelegate ];
     }
 
 }

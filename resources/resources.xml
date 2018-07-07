@@ -12,10 +12,11 @@
     <string id="menu_label_2">Test</string>
 
     <!-- Layouts -->
-    <layout id="MainLayout">
-        <label x="center" y="5" text="@Strings.prompt" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <layout id="TitleLayout">
+        <label x="center" y="5" text="@Strings.AppName" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
         <!-- TODO don't repeat yourself with filepath? -->
         <bitmap id="nny_man" x="center" y="40" filename="images/na_nakh_yopta_man.png" />
+        <label x="center" y="170" text="tipishev\n2018" color="Gfx.COLOR_WHITE" justification="Gfx.TEXT_JUSTIFY_CENTER" />
     </layout>
 
     <!-- Menus -->
