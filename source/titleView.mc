@@ -21,10 +21,18 @@ class TitleView extends Ui.View {
       }
 
       mainMenu.addItem(Rez.Strings.newGame, :newGame);
-
-      var mainMenuDelegate = new MainMenuDelegate();  // TODO set valid choices
+      // TODO set valid choices
+      var mainMenuDelegate = new MainMenuDelegate(self);
 
       Ui.pushView(mainMenu, mainMenuDelegate, Ui.SLIDE_UP);
+    }
+
+    function startNewGame() {
+      Ui.popView(Ui.SLIDE_DOWN);  // popping main menu? maybe move to delegate?
+      var text = "So, you're a gladiator trainer, Harry!";
+      var pagerView = new PagerView(text);
+      var pagerDelegate = new PagerDelegate(pagerView);
+      Ui.pushView(pagerView, pagerDelegate, Ui.SLIDE_RIGHT);
     }
 
     function onShow() {

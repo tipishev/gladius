@@ -1,5 +1,4 @@
 using Toybox.Application as App;
-using Toybox.WatchUi as Ui;
 
 class GladiusApp extends App.AppBase {
     public var gameState;

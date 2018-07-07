@@ -2,15 +2,18 @@ using Toybox.WatchUi as Ui;
 
 class MainMenuDelegate extends Ui.MenuInputDelegate {
 
-    function initialize() {
+    private var _view;
+
+    function initialize(view) {
         MenuInputDelegate.initialize();
+        self._view = view;
     }
 
     function onMenuItem(item) {
         if (item == :load) {
             print("load game");
         } else if (item == :newGame) {
-            print("new game");
+            self._view.startNewGame();
         }
     }
 
