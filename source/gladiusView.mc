@@ -10,7 +10,7 @@ const BOM_DESTINATION = new Point(240, 120);
 
 
 var bim, bom, tickTimer, avatar, hadDialogue /* FIXME should be state*/;
-class GladiusView extends Ui.View {  // FIXME capitalize  class name
+class GladiusView extends Ui.View {
 
     function initialize() {
         View.initialize();
@@ -32,9 +32,6 @@ class GladiusView extends Ui.View {  // FIXME capitalize  class name
     // Load your resources here
     function onLayout(dc) {
         /* setLayout(Rez.Layouts.MainLayout(dc)); */
-        /* dc.setColor(WHITE, WHITE); */
-        /* dc.fillCircle(120, 120, 120); */
-
         tickTimer = new Timer.Timer();
         tickTimer.start(method(:onTick), 50, true);
 
