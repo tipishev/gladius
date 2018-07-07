@@ -1,6 +1,3 @@
-using Toybox.Graphics as Gfx;
-using Toybox.Math as Math;
-using Toybox.System as Sys;
 using Toybox.WatchUi as Ui;
 
 class GladiusView extends Ui.View {
@@ -10,7 +7,7 @@ class GladiusView extends Ui.View {
     }
 
     function onLayout(dc) {
-        setLayout(Rez.Layouts.MainLayout(dc));
+      setLayout(Rez.Layouts.MainLayout(dc));
     }
 
     function onShow() {
