@@ -66,8 +66,9 @@ class PagerView extends Ui.View {
         height = rectangle[3];
         dc.drawRectangle(x, y, width, height);
 
-        for(j = 0; j < 3; j++ ) {
-          offset = 0;
+        offset = 0;  // the least we can take from string
+        while (true) {
+          // try/catch out of bound exception
           var takenChar = TEXT.substring(start + offset,
                                          start + offset + 1);
           if (takenChar == "\n") {
