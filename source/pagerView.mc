@@ -24,7 +24,7 @@ class PagerView extends Ui.View {
 
     function initialize(text) {
         View.initialize();
-        self._text = LOREM_IPSUM;  // FIXME /* self._text = text; */
+        self._text = LOREM_IPSUM_LINED;  // FIXME /* self._text = text; */
         index = 0;
     }
 

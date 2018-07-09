@@ -35,7 +35,7 @@ class BattleView extends Ui.View {
         tickTimer = new Timer.Timer();
         tickTimer.start(method(:onTick), 50, true);
 
-        bim = new Creature("Bim", BLACK, 2, BIM_START);
+        bim = new Creature("Bim", BLACK, 3, BIM_START);
         bom = new Creature("Bom", RED, 1, BOM_START);
         hadDialogue = false;
     }
