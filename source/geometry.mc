@@ -4,6 +4,7 @@ using Toybox.Math as Math;
 const sqrt = Math.sqrt;
 const pow = Math.pow;
 
+// TODO package as a module
 
 class Point {
   var x, y;

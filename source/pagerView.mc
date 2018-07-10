@@ -1,5 +1,10 @@
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Gfx;
+using MyStringUtils as StringUtils;
+
+const charAt = StringUtils.charAt;
+const NEWLINE = "\n";
+const WHITESPACE = " ";
 
 const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
@@ -42,7 +47,10 @@ class PagerView extends Ui.View {
         [72, 211, 95, 22],
       ];
 
-      var i, j, rectangle, x, y, width, height, offset, start, end, buffer, tempBuffer;
+      // FIXME use lastWordEnd semantics
+      var i, j;
+      var rectangle, x, y, width, height;
+      var lastWordEnd, potentialOffset, start, end, buffer, tempBuffer;
       start = 0;
       for(i = 0; i < rectangles.size(); i++ ) {
         rectangle = rectangles[i];
@@ -53,24 +61,46 @@ class PagerView extends Ui.View {
         height = rectangle[3];
         dc.drawRectangle(x, y, width, height);
 
-        offset = 0;  // the least we can take from string
+        lastWordEnd = 0;
+        potentialOffset = 0;
+        var finalOffset = 0;
         while (true) {
-          // try/catch out of bound exception
-          var takenChar = self._text.substring(start + offset,
-                                         start + offset + 1);
-          if (takenChar == "\n") {
+          /* print(charAt(self._text, 5)); */
+          // TODO try/catch out of bound exception
+          potentialOffset += 1;
+          var newChar = charAt(self._text, potentialOffset);
+          if (newChar == NEWLINE) {
+            finalOffset += 1;  // consume newline
             break;
           }
-          var potentialWidth = measureText(dc, self._text.substring(start, start + offset + 1));
 
-          if (potentialWidth > width) {  // LBYL
-            break;
+          print(newChar);
+          if (newChar.equals(WHITESPACE)) {
+            lastWordEnd = potentialOffset;  // it may come useful
+          }
+
+          var potentialString = self._text.substring(start, start + potentialOffset);
+          var potentialWidth = measureText(dc, potentialString);
+
+          if (potentialWidth > width) {  // oops, we're over budget
+            if (newChar.equals(WHITESPACE)) {
+              finalOffset += 1; // consume whitespace
+              break;
+            } else { // mid-word
+              if (lastWordEnd != 0) {
+                finalOffset = lastWordEnd;  // next line deals with this shit
+                break;
+              } else { // this whole line is a long-ass word, print part of it
+                break;
+              }
+            }
           } else {
-            offset += 1;
+            finalOffset += 1;  // consume this character
           }
         }
 
-        end = start + offset;
+        end = start + finalOffset;
+
         // need to guarantee that the text fits in the box
         dc.drawText(x, y, FONT, self._text.substring(start, end), JUSTIFY_LEFT);
         start = end;
