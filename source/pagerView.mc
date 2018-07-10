@@ -3,14 +3,12 @@ using Toybox.Graphics as Gfx;
 
 const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
+const LOREM_IPSUM_META = "In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document without relying on meaningful content (also called greeking). Replacing the actual content with placeholder text allows designers to design the form of the content before the content itself has been produced.";
+
 const MOSKVA_PETUSHKI = "Первое издание «Москва—Петушки», благо было в одном экземпляре, быстро разошлось. Я получал с тех пор много нареканий за главу «Серп и Молот – Карачарово», и совершенно напрасно. Во вступлении к первому изданию я предупреждал всех девушек, что главу «Серп и Молот – Карачарово» следует пропустить, не читая, поскольку за фразой «И немедленно выпил» следуют полторы страницы чистейшего мата, что во всей этой главе нет ни единого цензурного слова, за исключением фразы «И немедленно выпил».";
 
 const FONT = Gfx.FONT_SYSTEM_XTINY;
 const JUSTIFY_LEFT = Gfx.TEXT_JUSTIFY_LEFT;
-
-// 240x240 round screen specific
-const CENTERED_TEXT_OFFSET = [120, 3];
-const LINE_LENGTHS = [9, 18, 26, 27, 27, 26, 18, 9];
 
 class PagerView extends Ui.View {
 
@@ -18,7 +16,7 @@ class PagerView extends Ui.View {
 
     function initialize(text) {
         View.initialize();
-        self._text = MOSKVA_PETUSHKI;  // FIXME /* self._text = text; */
+        self._text = LOREM_IPSUM_META;  // FIXME /* self._text = text; */
         index = 0;
         self._startingFrom = 0;
     }
@@ -29,8 +27,9 @@ class PagerView extends Ui.View {
 
     function drawTextLines(dc) {
     /* helpers for properly aligning text lines */
-    // TODO generate programmatically
       dc.setColor(BLACK, TRANSPARENT);
+
+      // TODO generate programmatically
       var rectangles = [
         [75, 8, 91, 22],
         [36, 34, 171, 22],
