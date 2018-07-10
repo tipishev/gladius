@@ -21,7 +21,7 @@ class PagerView extends Ui.View {
 
     function initialize(text) {
         View.initialize();
-        self._text = LOREM_IPSUM_META;  // FIXME /* self._text = text; */
+        self._text = MOSKVA_PETUSHKI;  // FIXME /* self._text = text; */
         index = 0;
         self._startingFrom = 0;
     }
@@ -50,9 +50,9 @@ class PagerView extends Ui.View {
       // FIXME use lastWordEnd semantics
       var i, j;
       var rectangle, x, y, width, height;
-      var lastWordEnd, potentialOffset, start, end, buffer, tempBuffer;
-      start = 0;
-      for(i = 0; i < rectangles.size(); i++ ) {
+      var offset, lastWordEnd, start, end, buffer, tempBuffer;
+      start = 0; // first character in text to print
+      for (i = 0; i < rectangles.size(); i++ ) {
         rectangle = rectangles[i];
 
         x = rectangle[0];
@@ -61,45 +61,45 @@ class PagerView extends Ui.View {
         height = rectangle[3];
         dc.drawRectangle(x, y, width, height);
 
-        lastWordEnd = 0;
-        potentialOffset = 0;
-        var finalOffset = 0;
+        lastWordEnd = null;
+        offset = 0;
+
+        // filling up current rectangle
         while (true) {
           /* print(charAt(self._text, 5)); */
           // TODO try/catch out of bound exception
-          potentialOffset += 1;
-          var newChar = charAt(self._text, potentialOffset);
-          if (newChar == NEWLINE) {
-            finalOffset += 1;  // consume newline
+          var newChar = charAt(self._text, start + offset);
+          if (newChar.equals(NEWLINE)) {
+            offset += 1;  // consume newline
             break;
           }
 
-          print(newChar);
-          if (newChar.equals(WHITESPACE)) {
-            lastWordEnd = potentialOffset;  // it may come useful
+          var isWhitespace = newChar.equals(WHITESPACE); // TODO tabs and stuff
+
+          if (isWhitespace) {
+            lastWordEnd = offset;
+            print("lastWordEnd at " + lastWordEnd);
           }
 
-          var potentialString = self._text.substring(start, start + potentialOffset);
+          var potentialString = self._text.substring(start, start + offset + 1);
           var potentialWidth = measureText(dc, potentialString);
 
-          if (potentialWidth > width) {  // oops, we're over budget
-            if (newChar.equals(WHITESPACE)) {
-              finalOffset += 1; // consume whitespace
-              break;
-            } else { // mid-word
-              if (lastWordEnd != 0) {
-                finalOffset = lastWordEnd;  // next line deals with this shit
-                break;
-              } else { // this whole line is a long-ass word, print part of it
-                break;
-              }
+          if (potentialWidth > width) {  // oops, we're over budget, act now
+            /* if (isWhitespace) { */
+            /*   break; */
+            /* } else { // mid-word */
+            if (lastWordEnd != null) {
+              offset = lastWordEnd + 1;  // +1 to consume space
             }
-          } else {
-            finalOffset += 1;  // consume this character
+            /*   break; */
+            /* } */
+            break;
+          } else {  // all good, it fits
+            offset += 1;  // consume this character
           }
         }
 
-        end = start + finalOffset;
+        end = start + offset;
 
         // need to guarantee that the text fits in the box
         dc.drawText(x, y, FONT, self._text.substring(start, end), JUSTIFY_LEFT);
