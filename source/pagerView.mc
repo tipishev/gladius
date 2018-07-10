@@ -3,14 +3,15 @@ using Toybox.Graphics as Gfx;
 using MyStringUtils as StringUtils;
 
 const charAt = StringUtils.charAt;
+const isWhitespace = StringUtils.isWhitespace;
+
 const NEWLINE = "\n";
-const WHITESPACE = " ";
 
 const LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 const LOREM_IPSUM_META = "In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document without relying on meaningful content (also called greeking). Replacing the actual content with placeholder text allows designers to design the form of the content before the content itself has been produced.";
 
-const MOSKVA_PETUSHKI = "Первое издание «Москва—Петушки», благо было в одном экземпляре, быстро разошлось. Я получал с тех пор много нареканий за главу «Серп и Молот – Карачарово», и совершенно напрасно. Во вступлении к первому изданию я предупреждал всех девушек, что главу «Серп и Молот – Карачарово» следует пропустить, не читая, поскольку за фразой «И немедленно выпил» следуют полторы страницы чистейшего мата, что во всей этой главе нет ни единого цензурного слова, за исключением фразы «И немедленно выпил».";
+const MOSKVA_PETUSHKI = "я предупреждал всех девушек, что главу «Серп и Молот – Карачарово» следует пропустить, не читая, поскольку за фразой «И немедленно выпил» следуют полторы страницы чистейшего мата, что во всей этой главе нет ни единого цензурного слова, за исключением фразы «И немедленно выпил».";
 
 const FONT = Gfx.FONT_SYSTEM_XTINY;
 const JUSTIFY_LEFT = Gfx.TEXT_JUSTIFY_LEFT;
@@ -66,7 +67,6 @@ class PagerView extends Ui.View {
 
         // filling up current rectangle
         while (true) {
-          /* print(charAt(self._text, 5)); */
           // TODO try/catch out of bound exception
           var newChar = charAt(self._text, start + offset);
           if (newChar.equals(NEWLINE)) {
@@ -74,25 +74,17 @@ class PagerView extends Ui.View {
             break;
           }
 
-          var isWhitespace = newChar.equals(WHITESPACE); // TODO tabs and stuff
-
-          if (isWhitespace) {
+          if (isWhitespace(newChar) || newChar.equals("—")) {
             lastWordEnd = offset;
-            print("lastWordEnd at " + lastWordEnd);
           }
 
           var potentialString = self._text.substring(start, start + offset + 1);
           var potentialWidth = measureText(dc, potentialString);
 
           if (potentialWidth > width) {  // oops, we're over budget, act now
-            /* if (isWhitespace) { */
-            /*   break; */
-            /* } else { // mid-word */
             if (lastWordEnd != null) {
               offset = lastWordEnd + 1;  // +1 to consume space
             }
-            /*   break; */
-            /* } */
             break;
           } else {  // all good, it fits
             offset += 1;  // consume this character
