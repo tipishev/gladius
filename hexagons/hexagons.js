@@ -1,38 +1,43 @@
-PI = Math.PI
-cos = Math.cos
-sin = Math.sin
-sqrt = Math.sqrt
+'use strict'
 
-HEX_SIZE = 24
-HEX_WIDTH = HEX_SIZE * sqrt(3)
-HEX_VERTICAL_SPACING = HEX_WIDTH * 3/4
+/* globals
+*/
 
-const print = function(text) { console.log(text) }
+// shortcuts
+const PI = Math.PI
+const cos = Math.cos
+const sin = Math.sin
+const sqrt = Math.sqrt
 
-const Point = function(x, y) {
-  return {x: x, y: y}
+// constants
+const HEX_SIZE = 24
+
+// calculated constants
+const HEX_WIDTH = HEX_SIZE * sqrt(3)
+const HEX_HEIGHT = HEX_SIZE * 2
+const HEX_VERTICAL_SPACING = HEX_HEIGHT * 3 / 4
+
+// utils
+const print = function (text) { console.log(text) }
+
+// Models
+const Point = function (x, y) {
+  return { x: x, y: y }
 }
 
-const drawCircle = function(ctx, center, side) {
-  x = center.x
-  y = center.y
-  ctx.moveTo(x + side, y)
-  ctx.arc(x, y, side, 0, 2*Math.PI)
-  ctx.stroke()
+// draw hexagon
+
+const pointyHexCorner = function (center, size, idx) {
+  let angleInDegrees = 60 * idx - 30
+  let angleInRadians = PI / 180 * angleInDegrees
+  return Point(center.x + size * cos(angleInRadians),
+    center.y + size * sin(angleInRadians))
 }
 
-
-const drawHex = function(ctx, center, size) {
-
-  const pointyHexCorner = function (center, size, i) {
-    let angleInDegrees = 60 * i - 30
-    let angleInRadians = PI / 180 * angleInDegrees
-    return Point(center.x + size * cos(angleInRadians),
-                 center.y + size * sin(angleInRadians))
-  }
-
+const drawHex = function (ctx, center, size) {
+  print('Drawing a hex')
   let corners = []
-  for (let i=0; i<6; i++) {
+  for (let i = 0; i < 6; i++) {
     let corner = pointyHexCorner(center, size, i)
     corners.push(corner)
   }
@@ -44,23 +49,41 @@ const drawHex = function(ctx, center, size) {
   ctx.stroke()
 }
 
+const Board = function (spec) {
+  // extract from spec
+  // let width = spec.width
+  // let height = spec.height
 
-let canvas = document.getElementById("myCanvas")
-let ctx = canvas.getContext("2d")
+  let canvas = document.getElementById('myCanvas')
+  let ctx = canvas.getContext('2d')
 
-let row = 0
-let x = 0
-let y = 0
-while (y < canvas.height) {
+  const self = {}
 
-  x = (row % 2 === 0) ? 0 : HEX_WIDTH / 2
-
-  print(y)
-  while (x < canvas.width) {
-    print(x)
-    drawHex(ctx, Point(x, y), HEX_SIZE)
-    x += HEX_WIDTH
+  self.draw = function () {
+    let row = 0
+    let x = 0
+    let y = 0
+    while (y < canvas.height) {
+      x = (row % 2 === 0) ? 0 : HEX_WIDTH / 2
+      while (x < canvas.width) {
+        drawHex(ctx, Point(x, y), HEX_SIZE)
+        x += HEX_WIDTH
+      }
+      y += HEX_VERTICAL_SPACING
+      row += 1
+    }
   }
-  y += HEX_VERTICAL_SPACING + 4  // FIXME wtf 4?
-  row += 1
+
+  self.drawCircle = function (center, radius) {
+    let x = center.x
+    let y = center.y
+    ctx.moveTo(x + radius, y)
+    ctx.arc(x, y, radius, 0, 2 * PI)
+    ctx.stroke()
+  }
+
+  return self
 }
+
+let board = Board({ widht: 1024, height: 780 })
+board.draw()
